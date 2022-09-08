@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:learning_getx/utils/const/app_colors.dart';
 
-class TextfieldComponent extends StatelessWidget {
-  TextfieldComponent({Key? key, this.enabled = false, required this.text})
+class TextFieldComponent extends StatelessWidget {
+  const TextFieldComponent({Key? key, this.enabled = false, required this.text})
       : super(key: key);
 
-  bool? enabled;
-  String text;
+  final bool? enabled;
+  final String text;
 
   @override
   Widget build(BuildContext context) {

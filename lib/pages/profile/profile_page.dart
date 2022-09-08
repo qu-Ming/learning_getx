@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_getx/components/container_profile_component.dart';
 import 'package:learning_getx/components/text_component.dart';
-import 'package:learning_getx/components/textfield_component.dart';
 import 'package:learning_getx/pages/profile/profile_controllerr.dart';
 import 'package:learning_getx/utils/const/app_colors.dart';
 import 'package:learning_getx/utils/const/app_dimens.dart';
@@ -18,48 +18,53 @@ class ProfilePage extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppColors.appBarColor,
-          title: TextComponent(
+          title: const TextComponent(
             text: 'Profile',
             textSize: AppDimens.text_size_20,
             colorText: AppColors.colorWhite,
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              iconSize: 34.0,
+              onPressed: () {
+                profileController.onTap(context);
+              },
+            )
+          ],
           centerTitle: true,
           leading: GestureDetector(
             onTap: () {
               ProfileController().getProfile();
             },
             child: const Icon(
-              Icons.chevron_left,
-              size: 34,
+              Icons.refresh,
+              size: 30.0,
             ),
           ),
         ),
         body: SingleChildScrollView(
           child: GetBuilder<ProfileController>(
             id: ('updateProfile'),
-            builder: (_) => Column(
+            builder: (context) => Column(
               children: [
                 Stack(clipBehavior: Clip.none, children: [
                   Container(
-                    padding: const EdgeInsets.all(45),
+                    padding: const EdgeInsets.all(50),
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       color: AppColors.appBarColor,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.elliptical(70, 50),
-                        bottomRight: Radius.elliptical(70, 50),
-                      ),
                     ),
                   ),
                   Positioned(
-                    bottom: -25,
+                    bottom: -20,
                     right: 0,
                     left: 0,
                     child: CachedNetworkImage(
                       imageUrl:
                           profileController.profileModel.picture.toString(),
                       placeholder: (context, url) => const CircleAvatar(
-                        backgroundColor: Colors.amber,
+                        backgroundColor: AppColors.backGourndColor,
                         radius: 50,
                       ),
                       imageBuilder: (context, image) => Center(
@@ -83,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ]),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 5),
+                  padding: const EdgeInsets.only(top: 24),
                   child: TextComponent(
                     text:
                         '${profileController.profileModel.currentLastName} ${profileController.profileModel.currentMiddleName} ${profileController.profileModel.currentFirstName}',
@@ -106,35 +111,32 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextComponent(text: 'Email'),
-                      TextfieldComponent(
-                          text: profileController.profileModel.currentEmail
-                              .toString()),
-                      TextComponent(text: 'Identity card'),
-                      TextfieldComponent(
-                          text: profileController.profileModel.peopleIdNumber
-                              .toString()),
-                      TextComponent(text: 'Phone'),
-                      TextfieldComponent(
-                          text: profileController.profileModel.currentPhone
-                              .toString()),
-                      TextComponent(
-                        text: 'Address'.toString(),
+                      ContainerProfileComponent(
+                        text: profileController.profileModel.currentEmail
+                            .toString(),
+                        icon: Icons.email,
                       ),
-                      TextfieldComponent(
-                          text:
-                              '${profileController.profileModel.currentAddress} ${profileController.profileModel.contactCountry}'),
-                      TextComponent(
-                        text: 'Day of birth'.toString(),
+                      ContainerProfileComponent(
+                        text: profileController.profileModel.peopleIdNumber
+                            .toString(),
+                        icon: Icons.person,
                       ),
-                      TextfieldComponent(
-                          text: '${profileController.profileModel.birthDate}'),
-                      TextComponent(
-                        text: 'XXXX of XXX'.toString(),
+                      ContainerProfileComponent(
+                        text: profileController.profileModel.currentPhone
+                            .toString(),
+                        icon: Icons.phone_android,
                       ),
-                      TextfieldComponent(
-                          text:
-                              '${profileController.profileModel.contactCountry}'),
+                      ContainerProfileComponent(
+                        text:
+                            '${profileController.profileModel.currentAddress} ${profileController.profileModel.contactCountry}'
+                                .toString(),
+                        icon: Icons.home_filled,
+                      ),
+                      ContainerProfileComponent(
+                        text:
+                            profileController.profileModel.birthDate.toString(),
+                        icon: Icons.cake,
+                      ),
                     ],
                   ),
                 ),

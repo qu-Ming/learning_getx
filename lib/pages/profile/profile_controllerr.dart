@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_getx/models/profile_model.dart';
+import 'package:learning_getx/pages/next_page/next_page.dart';
 import 'package:learning_getx/services/dio_client.dart';
 
 class ProfileController extends GetxController {
@@ -20,11 +24,16 @@ class ProfileController extends GetxController {
     dioClient.postAsync(
         'http://dev.duytan.edu.vn:8007/mydtuApi2022/api/GetProfile',
         body: body, errorCallBack: (e) {
-      print(e);
+      log(e);
     }, callBack: (data) {
       profileModel = ProfileModel.fromJson(data);
       update(['updateProfile']);
     });
+  }
+
+  onTap(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const NextPage()));
   }
 
   @override
