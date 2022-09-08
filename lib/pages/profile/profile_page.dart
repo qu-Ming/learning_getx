@@ -129,6 +129,12 @@ class ProfilePage extends StatelessWidget {
                       ),
                       TextfieldComponent(
                           text: '${profileController.profileModel.birthDate}'),
+                      TextComponent(
+                        text: 'XXXX of XXX'.toString(),
+                      ),
+                      TextfieldComponent(
+                          text:
+                              '${profileController.profileModel.contactCountry}'),
                     ],
                   ),
                 ),
