@@ -22,12 +22,12 @@ class ContainerProfileComponent extends StatelessWidget {
             margin: const EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: AppColors.appBarColor,
+              color: AppColors.backGourndColor,
             ),
             child: Icon(
               icon,
               color: AppColors.colorWhite,
-              size: 30,
+              size: AppDimens.icon_size_28,
             ),
           ),
           Expanded(
