@@ -10,6 +10,9 @@ class NextPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController fNum = TextEditingController();
+    TextEditingController lNum = TextEditingController();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: GestureDetector(
@@ -73,11 +76,8 @@ class NextPage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30),
-                          topLeft: Radius.circular(30),
-                        ),
-                        color: AppColors.colorWhite),
+                      color: AppColors.colorWhite,
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Column(
@@ -94,14 +94,14 @@ class NextPage extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          const TextFieldComponent(
+                          TextFieldComponent(
+                            textEditingController: fNum,
                             text: 'First number',
-                            enabled: true,
                             textInputType: TextInputType.number,
                           ),
-                          const TextFieldComponent(
+                          TextFieldComponent(
+                            textEditingController: lNum,
                             text: 'Last number',
-                            enabled: true,
                             textInputType: TextInputType.number,
                           ),
                           const SizedBox(
@@ -127,7 +127,7 @@ class NextPage extends StatelessWidget {
                               ),
                               Container(
                                 height: 50,
-                                width: 100,
+                                width: 120,
                                 color: AppColors.colorBlue,
                                 child: Center(
                                   child: GestureDetector(

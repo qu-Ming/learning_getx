@@ -9,4 +9,6 @@ class NextPageController extends GetxController {
   cancelKeyBoard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }
+
+  onEnterButton() {}
 }
