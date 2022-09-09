@@ -5,4 +5,8 @@ class NextPageController extends GetxController {
   onClickIconReturn(BuildContext context) {
     Navigator.of(context).pop(true);
   }
+
+  cancelKeyBoard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
 }
