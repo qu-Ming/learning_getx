@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learning_getx/components/text_component.dart';
 import 'package:learning_getx/components/textfield_component.dart';
 import 'package:learning_getx/pages/next_page/next_page_controller.dart';
@@ -10,9 +11,15 @@ class NextPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get.lazyPut(() => NextPageController());
+
+    NextPageController nextPageController = Get.put(NextPageController());
     TextEditingController fNum = TextEditingController();
     TextEditingController lNum = TextEditingController();
 
+    String title = 'Random Number';
+    String title2 = '';
+    String errorText = '';
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: GestureDetector(
@@ -78,72 +85,70 @@ class NextPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                       color: AppColors.colorWhite,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          const TextComponent(
-                            text: 'Random Number',
-                            colorText: AppColors.appBarColor,
-                            fontWeight: FontWeight.bold,
-                            textSize: AppDimens.icon_size_30,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFieldComponent(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        GetBuilder<NextPageController>(
+                            id: "randomNumber",
+                            builder: (context) {
+                              return TextComponent(
+                                text: title2.isEmpty
+                                    ? title
+                                    : "Number: " + title2,
+                                colorText: AppColors.appBarColor,
+                                fontWeight: FontWeight.bold,
+                                textSize: AppDimens.icon_size_30,
+                              );
+                            }),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 60.0, vertical: 10.0),
+                          child: TextFieldComponent(
                             textEditingController: fNum,
-                            text: 'First number',
+                            text:
+                                fNum.text.isEmpty ? 'First number' : fNum.text,
                             textInputType: TextInputType.number,
                           ),
-                          TextFieldComponent(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                          child: TextFieldComponent(
                             textEditingController: lNum,
-                            text: 'Last number',
+                            text: lNum.text.isEmpty ? 'Last number' : lNum.text,
                             textInputType: TextInputType.number,
                           ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 70,
-                                color: AppColors.colorGrey,
-                                child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: const TextComponent(
-                                      text: 'Cancel',
-                                      colorText: AppColors.colorBlack,
-                                      textSize: AppDimens.text_size_16,
-                                    ),
-                                  ),
-                                ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 20),
+                          height: 50,
+                          width: 200,
+                          color: AppColors.colorBlue,
+                          child: Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                if (int.parse(lNum.text) -
+                                        int.parse(fNum.text) <
+                                    0) {
+                                  String errorText =
+                                      NextPageController().errorText();
+                                }
+
+                                title2 = nextPageController
+                                    .randomEnter(int.parse(fNum.text),
+                                        int.parse(lNum.text))
+                                    .toString();
+                              },
+                              child: const TextComponent(
+                                text: 'Enter',
+                                colorText: AppColors.colorWhite,
+                                textSize: AppDimens.text_size_16,
                               ),
-                              Container(
-                                height: 50,
-                                width: 120,
-                                color: AppColors.colorBlue,
-                                child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: const TextComponent(
-                                      text: 'Enter',
-                                      colorText: AppColors.colorWhite,
-                                      textSize: AppDimens.text_size_16,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

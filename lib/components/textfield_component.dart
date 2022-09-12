@@ -7,9 +7,11 @@ class TextFieldComponent extends StatelessWidget {
     required this.text,
     this.textInputType,
     required this.textEditingController,
+    this.errorText,
   }) : super(key: key);
 
   final String text;
+  final String? errorText;
   final TextInputType? textInputType;
   final TextEditingController textEditingController;
 
@@ -21,6 +23,7 @@ class TextFieldComponent extends StatelessWidget {
         controller: textEditingController,
         keyboardType: textInputType,
         decoration: InputDecoration(
+          errorText: errorText,
           border: const OutlineInputBorder(borderSide: BorderSide(width: 1)),
           disabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(width: 1)),
