@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:learning_getx/utils/const/app_colors.dart';
 
 class TextFieldComponent extends StatelessWidget {
-  const TextFieldComponent(
-      {Key? key, this.enabled = false, required this.text, this.textInputType})
-      : super(key: key);
+  const TextFieldComponent({
+    Key? key,
+    required this.text,
+    this.textInputType,
+    required this.textEditingController,
+    this.errorText,
+    this.colorText,
+  }) : super(key: key);
 
-  final bool? enabled;
   final String text;
+  final String? errorText;
   final TextInputType? textInputType;
-
+  final TextEditingController textEditingController;
+  final Color? colorText;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10, top: 5),
       child: TextField(
+        controller: textEditingController,
         keyboardType: textInputType,
         decoration: InputDecoration(
+          errorText: errorText,
           border: const OutlineInputBorder(borderSide: BorderSide(width: 1)),
           disabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(width: 1)),
-          enabled: true,
           // labelText: 'Email Address',
           hintText: text,
-          hintStyle: const TextStyle(
-              color: AppColors.colorBlack, fontFamily: 'Poppins'),
+          hintStyle: TextStyle(color: colorText, fontFamily: 'Poppins'),
         ),
       ),
     );
