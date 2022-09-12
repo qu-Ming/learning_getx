@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learning_getx/utils/const/app_colors.dart';
 
 class TextFieldComponent extends StatelessWidget {
   const TextFieldComponent({
@@ -8,13 +7,14 @@ class TextFieldComponent extends StatelessWidget {
     this.textInputType,
     required this.textEditingController,
     this.errorText,
+    this.colorText,
   }) : super(key: key);
 
   final String text;
   final String? errorText;
   final TextInputType? textInputType;
   final TextEditingController textEditingController;
-
+  final Color? colorText;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,8 +29,7 @@ class TextFieldComponent extends StatelessWidget {
               const OutlineInputBorder(borderSide: BorderSide(width: 1)),
           // labelText: 'Email Address',
           hintText: text,
-          hintStyle: const TextStyle(
-              color: AppColors.colorBlack, fontFamily: 'Poppins'),
+          hintStyle: TextStyle(color: colorText, fontFamily: 'Poppins'),
         ),
       ),
     );
