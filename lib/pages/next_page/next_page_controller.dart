@@ -14,15 +14,18 @@ class NextPageController extends GetxController {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  int randomEnter(int min, int max) {
-    int randomNum = (min) + Random().nextInt((max + 1 - min));
+  randomEnter(int min, int max, Function callBack) {
+    if (max - min < 0) {
+      callBack(errorText());
+    } else {
+      int randomNum = (min) + Random().nextInt((max + 1 - min));
+      callBack(randomNum);
+    }
     update(["randomNumber"]);
-
-    return randomNum;
   }
 
   String errorText() {
-    String errorText = "the first number is greater than the last";
+    String errorText = "The first number\nis greater than the last";
     return errorText;
   }
 }

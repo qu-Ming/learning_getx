@@ -8,8 +8,10 @@ class TextFieldComponent extends StatelessWidget {
     required this.textEditingController,
     this.errorText,
     this.colorText,
+    this.onChanged,
   }) : super(key: key);
 
+  final ValueChanged<String>? onChanged;
   final String text;
   final String? errorText;
   final TextInputType? textInputType;
@@ -22,6 +24,7 @@ class TextFieldComponent extends StatelessWidget {
       child: TextField(
         controller: textEditingController,
         keyboardType: textInputType,
+        onChanged: onChanged,
         decoration: InputDecoration(
           errorText: errorText,
           border: const OutlineInputBorder(borderSide: BorderSide(width: 1)),

@@ -11,14 +11,13 @@ class NextPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.lazyPut(() => NextPageController());
-
     NextPageController nextPageController = Get.put(NextPageController());
     TextEditingController fNum = TextEditingController();
     TextEditingController lNum = TextEditingController();
 
     String title = 'Random Number';
     String title2 = '';
+
     String errorText = '';
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -94,9 +93,7 @@ class NextPage extends StatelessWidget {
                             id: "randomNumber",
                             builder: (context) {
                               return TextComponent(
-                                text: title2.isEmpty
-                                    ? title
-                                    : "Number: " + title2,
+                                text: title2.isEmpty ? title : title2,
                                 colorText: AppColors.appBarColor,
                                 fontWeight: FontWeight.bold,
                                 textSize: AppDimens.icon_size_30,
@@ -128,17 +125,12 @@ class NextPage extends StatelessWidget {
                           child: Center(
                             child: GestureDetector(
                               onTap: () {
-                                if (int.parse(lNum.text) -
-                                        int.parse(fNum.text) <
-                                    0) {
-                                  String errorText =
-                                      NextPageController().errorText();
-                                }
-
-                                title2 = nextPageController
-                                    .randomEnter(int.parse(fNum.text),
-                                        int.parse(lNum.text))
-                                    .toString();
+                                nextPageController.randomEnter(
+                                    int.parse(fNum.text), int.parse(lNum.text),
+                                    (result) {
+                                  title2 = result.toString();
+                                  print(result.toString());
+                                });
                               },
                               child: const TextComponent(
                                 text: 'Enter',
